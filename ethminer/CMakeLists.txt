@@ -8,11 +8,9 @@ set(EXECUTABLE ethminer)
 
 file(GLOB HEADERS "*.h")
 
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-	set(RESOURCE_FILES "ethminer.rc")
-	add_executable(${EXECUTABLE} ${SRC_LIST} ${HEADERS} ${RESOURCE_FILES})
-else()
-	add_executable(${EXECUTABLE} ${SRC_LIST} ${HEADERS})
+add_executable(${EXECUTABLE} ${SRC_LIST} ${HEADERS})
+if(MSVC)
+	target_sources(${EXECUTABLE} PRIVATE ethminer.rc)
 endif()
 
 hunter_add_package(CLI11)
